@@ -37,6 +37,7 @@ const uploadThumb = async (fileBuffer, fileName) => {
     });
 
     const photo = makePhoto(uploadResponse.data);
+   
     return photo;
   } catch (error) {
     return { error: error.message };
@@ -46,13 +47,7 @@ const uploadThumb = async (fileBuffer, fileName) => {
 const saveThumb = async (fileBuffer, fileName) => {
   try {
     let photo = await uploadThumb(fileBuffer, fileName);
-    if (photo && photo.error) return photo;
 
-    // Assuming medium image processing is required and using the same buffer for simplicity
-    const mediumPhoto = await uploadThumb(fileBuffer, fileName);
-    if (mediumPhoto.error) return mediumPhoto;
-
-    photo.medium = mediumPhoto.url;
     return photo;
   } catch (error) {
     console.error('Error:', error);
